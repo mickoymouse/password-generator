@@ -32,17 +32,16 @@ Users should be able to:
 
 ### Links
 
-- Solution URL: [Add solution URL here](https://github.com/mickoymouse/password-generator)
-- Live Site URL: [Add live site URL here](https://password-generator-blue-phi-49.vercel.app/)
+- Solution URL: [Github Repo](https://github.com/mickoymouse/password-generator)
+- Live Site URL: [Live Demo](https://password-generator-blue-phi-49.vercel.app/)
 
 ## My process
 
 ### Built with
 
-- NextJS
-- Tailwind CSS
 - [React](https://reactjs.org/) - JS library
 - [Next.js](https://nextjs.org/) - React framework
+- [Tailwind CSS](https://tailwindcss.com/) - For styles
 
 ## Author
 
