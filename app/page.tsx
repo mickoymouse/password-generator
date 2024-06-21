@@ -15,6 +15,7 @@ export default function Home() {
 	const [symbols, setSymbols] = useState(false);
 	const [strenght, setStrenght] = useState(0);
 	const [password, setPassword] = useState<string | null>(null);
+	const [isCopied, setIsCopied] = useState(false);
 
 	enum StrengthLevel {
 		TooWeak = 1,
@@ -129,7 +130,7 @@ export default function Home() {
 	};
 
 	// generate random passowrd
-	function generatePassword() {
+	const generatePassword = () => {
 		const length = value;
 		const includeUppercase = uppercase;
 		const includeLowercase = lowercase;
@@ -142,7 +143,7 @@ export default function Home() {
 			!includeNumbers &&
 			!includeSymbols
 		) {
-			alert("Please select at least one option");
+			alert("Please select at least one option.");
 			return;
 		}
 
@@ -167,7 +168,22 @@ export default function Home() {
 		}
 
 		setPassword(password);
-	}
+	};
+
+	const copyToClipboard = () => {
+		if (!password) {
+			alert("Generate a password first!");
+			return;
+		}
+
+		navigator.clipboard.writeText(password || "");
+
+		setIsCopied(true);
+
+		setTimeout(() => {
+			setIsCopied(false);
+		}, 3000);
+	};
 
 	return (
 		<main className="flex min-h-screen justify-center p-4 bg-background-primary">
@@ -178,10 +194,25 @@ export default function Home() {
 							Password Generator
 						</h1>
 						<div className="h-[80px] bg-background-secondary p-6 flex items-center justify-between w-full">
-							<p className="text-[24px] md:text-[32px] font-bold text-foreground">
+							<p
+								className={cn("text-[24px] md:text-[32px] font-bold", {
+									"text-foreground": password,
+									"text-muted": !password,
+								})}
+							>
 								{password ? password : "P4$5W0rD!"}
 							</p>
-							<CopyIcon className="fill-primary cursor-pointer hover:fill-white" />
+							<div className="flex gap-4 items-center">
+								{isCopied && (
+									<p className="uppercase text-primary font-bold text-[16px] md:text-[18px]">
+										copied
+									</p>
+								)}
+								<CopyIcon
+									onClick={copyToClipboard}
+									className="fill-primary cursor-pointer hover:fill-white"
+								/>
+							</div>
 						</div>
 						<div className="bg-background-secondary p-6 flex flex-col gap-8">
 							<div className="flex justify-between items-center">
