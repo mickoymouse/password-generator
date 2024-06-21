@@ -235,6 +235,7 @@ export default function Home() {
 							{/* slider */}
 							<div className="w-full">
 								<input
+									aria-label="Select a value between 5 and 15"
 									type="range"
 									min="5"
 									max="15"
