@@ -104,7 +104,8 @@ export default function Home() {
 				<div
 					className={cn("cb w-5 h-5 flex items-center justify-center", {
 						"bg-primary border-none": itemCase,
-						"bg-background-primary border border-white": !itemCase,
+						"bg-background-primary border border-white hover:border-primary":
+							!itemCase,
 					})}
 					aria-hidden="true"
 				>
