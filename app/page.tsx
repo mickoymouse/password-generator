@@ -16,23 +16,24 @@ export default function Home() {
 	const [strenght, setStrenght] = useState(0);
 	const [password, setPassword] = useState<string | null>(null);
 	const [isCopied, setIsCopied] = useState(false);
+	const [rating, setRating] = useState(0);
 
-	enum StrengthLevel {
+	enum RatingLevel {
 		TooWeak = 1,
 		Weak = 2,
 		Medium = 3,
 		Strong = 4,
 	}
 
-	function getStrengthText(strengthLevel: StrengthLevel): string {
-		switch (strengthLevel) {
-			case StrengthLevel.TooWeak:
+	function getPasswordRating(rating: RatingLevel): string {
+		switch (rating) {
+			case RatingLevel.TooWeak:
 				return "Too weak!";
-			case StrengthLevel.Weak:
+			case RatingLevel.Weak:
 				return "Weak";
-			case StrengthLevel.Medium:
+			case RatingLevel.Medium:
 				return "Medium";
-			case StrengthLevel.Strong:
+			case RatingLevel.Strong:
 				return "Strong";
 			default:
 				return "";
@@ -138,6 +139,8 @@ export default function Home() {
 		const includeNumbers = numbers;
 		const includeSymbols = symbols;
 
+		let r = 0;
+
 		if (
 			!includeUppercase &&
 			!includeLowercase &&
@@ -151,15 +154,19 @@ export default function Home() {
 		let charset = "";
 		if (includeUppercase) {
 			charset += "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+			r += 1;
 		}
 		if (includeLowercase) {
 			charset += "abcdefghijklmnopqrstuvwxyz";
+			r += 1;
 		}
 		if (includeNumbers) {
 			charset += "0123456789";
+			r += 1;
 		}
 		if (includeSymbols) {
 			charset += "!@#$%^&*()";
+			r += 1;
 		}
 
 		let password = "";
@@ -169,6 +176,7 @@ export default function Home() {
 		}
 
 		setPassword(password);
+		setRating(r);
 	};
 
 	const copyToClipboard = () => {
@@ -260,7 +268,7 @@ export default function Home() {
 								</p>
 								<div className="flex gap-4 items-center">
 									<p className="uppercase text-[18px] md:text-[24px] font-bold">
-										{getStrengthText(strenght)}
+										{getPasswordRating(rating)}
 									</p>
 									<div className="flex gap-2">
 										{Array(4)
@@ -271,11 +279,10 @@ export default function Home() {
 													className={cn(
 														"w-[10px] h-[28px] border border-white",
 														{
-															"bg-destructive":
-																index < strenght && strenght == 1,
-															"bg-secondary": index < strenght && strenght == 2,
-															"bg-accent": index < strenght && strenght == 3,
-															"bg-primary": index < strenght && strenght == 4,
+															"bg-destructive": index < rating && rating == 1,
+															"bg-secondary": index < rating && rating == 2,
+															"bg-accent": index < rating && rating == 3,
+															"bg-primary": index < rating && rating == 4,
 														}
 													)}
 												></div>
